@@ -8,8 +8,11 @@
  */
 function trimProperties(obj) {
   // ✨ implement
+  const user = {...obj}
+   Object.keys(user).map(ob => user[ob]= user[ob].trim())
+   return user
 }
-
+console.log(trimProperties({name: 'Jane'}))
 /**
  * [Exercise 2] trimPropertiesMutation trims in place the properties of an object
  * @param {object} obj - an object with properties that are strings
@@ -20,7 +23,12 @@ function trimProperties(obj) {
  */
 function trimPropertiesMutation(obj) {
   // ✨ implement
+  const newObj = {
+    name: obj.trim()
+  }
+  return newObj
 }
+console.log(trimPropertiesMutation('Bobby'))
 
 /**
  * [Exercise 3] findLargestInteger finds the largest integer in an array of integers
@@ -32,7 +40,10 @@ function trimPropertiesMutation(obj) {
  */
 function findLargestInteger(integers) {
   // ✨ implement
+  return Math.max.apply(null, integers)
 }
+const array = [1,2,3,4,5,100]
+console.log(Math.max(...array))
 
 class Counter {
   /**
@@ -41,7 +52,10 @@ class Counter {
    */
   constructor(initialNumber) {
     // ✨ initialize whatever properties are needed
+    this.initialNumber = initialNumber
+    this.timesCalled = 0
   }
+  
 
   /**
    * [Exercise 4B] Counter.prototype.countDown counts down to zero
@@ -57,6 +71,12 @@ class Counter {
    */
   countDown() {
     // ✨ implement
+    if(this.timesCalled === 0 || this.initialNumber === 0) {
+     this.timesCalled += 1
+     return this.initialNumber 
+    } else {
+      return (this.initialNumber -= 1)
+    }
   }
 }
 
@@ -66,6 +86,8 @@ class Seasons {
    */
   constructor() {
     // ✨ initialize whatever properties are needed
+    this.seasons = ['summer', 'fall', 'winter', 'spring']
+    this.index = 0
   }
 
   /**
@@ -82,6 +104,13 @@ class Seasons {
    */
   next() {
     // ✨ implement
+    const currentSeason = this.seasons[this.index]
+    if(this.index !== 3) {
+      this.index += 1
+    } else {
+      this.index = 0
+    }
+    return currentSeason
   }
 }
 
@@ -96,6 +125,8 @@ class Car {
     this.odometer = 0 // car initilizes with zero miles
     this.tank = tankSize // car initiazes full of gas
     // ✨ initialize whatever other properties are needed
+    this.name = name
+    this.mpg = mpg
   }
 
   /**
@@ -113,6 +144,13 @@ class Car {
    */
   drive(distance) {
     // ✨ implement
+    if(this.tank === 0) {
+      return 'Tank is empty'
+    } else {
+      this.tank -= distance/this.mpg
+      this.odometer += distance
+      return this.odometer
+    }
   }
 
   /**
@@ -128,9 +166,14 @@ class Car {
    */
   refuel(gallons) {
     // ✨ implement
+    if(this.tank === 20 || gallons > 20) {
+      return this.tank
+    } else {
+      this.tank += gallons
+      return this.tank
+    }
   }
 }
-
 /**
  * [Exercise 7] Asynchronously resolves whether a number is even
  * @param {number} number - the number to test for evenness
